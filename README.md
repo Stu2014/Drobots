@@ -8,16 +8,15 @@
 ## 安装 ##
 > pip install -r requierments
 
+## 启动
+
 pytho Drobots.py
 
-添加计划任务
+## 添加计划任务 每天下午7点推送一次
 
 0 19 * * * /usr/bin/python /root/Drobots.py
 
-每天下午7点推送一次
-
 ## Screenshot ##
 
-
-![screenshot](1.png)
+![screenshot](1.jpg)
 
