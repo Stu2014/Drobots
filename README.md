@@ -1,23 +1,23 @@
 # Drobots v1.0 #
 
-½Å±¾ÓÃÓÚ¹ØÁª¶¤¶¤»úÆ÷ÈË²¢ÍÆËÍ°²È«ĞÂÎÅ¡£
+è„šæœ¬ç”¨äºå…³è”é’‰é’‰æœºå™¨äººå¹¶æ¨é€å®‰å…¨æ–°é—»ã€‚
 
 * [2019-08-16] 
-  * Ôö¼Ósec-wiki¡¢wiki-inio¡¢52bug
+  * å¢åŠ sec-wikiã€wiki-inioã€52bug
 
-## °²×° ##
+## å®‰è£… ##
 > pip install -r requierments
 
 pytho Drobots.py
 
-Ìí¼Ó¼Æ»®ÈÎÎñ
+æ·»åŠ è®¡åˆ’ä»»åŠ¡
 
 0 19 * * * /usr/bin/python /root/Drobots.py
 
-Ã¿ÌìÏÂÎç7µãÍÆËÍÒ»´Î
+æ¯å¤©ä¸‹åˆ7ç‚¹æ¨é€ä¸€æ¬¡
 
 ## Screenshot ##
 
 
-![screenshot](./images/1.png)
+![screenshot](1.png)
 
