@@ -9,7 +9,7 @@ import feedparser
 from bs4 import BeautifulSoup
 
 
-webhook= 'https://oapi.dingtalk.com/robot/send?access_token='# access_token可以在丁丁机器人里找到
+webhook= 'https://oapi.dingtalk.com/robot/send?access_token=xxx'# access_token可以在丁丁机器人里找到
 headers ={"Content-Type": "application/json"}
 #给机器人添加图片
 links = [{"title": "安全黑板报每日推送","messageURL": "","picURL":"https://mmbiz.qpic.cn/mmbiz_jpg/zibib0z20iaTOUh2fSPKZQCjHzwcR8ftcbNLwvJELHfhMuSJORV9BH86yLKd1qZOlVtT3WCsmTNIekQsugIU9X6kQ/0?wx_fmt=jpeg"}]
@@ -93,7 +93,10 @@ def send_mes():
     }
     try:
         message =requests.post(url=webhook, data=json.dumps(body), headers=headers)
-        print "安全黑板报机器人推送成功！"
+        if json.loads(message.text)["errmsg"] == "ok":
+        	print u"安全黑板报机器人推送成功！"
+        else:
+        	print json.loads(message.text)["errmsg"]
     except:
         error_robots()
 
