@@ -96,6 +96,7 @@ def send_mes():
         if json.loads(message.text)["errmsg"] == "ok":
             print u"安全黑板报机器人推送成功！"
         else:
+            error_robots()
             print json.loads(message.text)["errmsg"]
     except:
         error_robots()
