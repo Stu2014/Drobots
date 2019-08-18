@@ -26,6 +26,3 @@ pytho Drobots.py
 * http://wiki.ioin.in/
 * http://www.52bug.cn/
 
-## 安全黑板报微信群 ##
-
-![webchat](2.jpg)
