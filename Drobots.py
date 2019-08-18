@@ -15,7 +15,7 @@ headers ={"Content-Type": "application/json"}
 links = [
             {
     "title": "安全黑板报每日推送",
-    "messageURL": "",
+    "messageURL": "https://mp.weixin.qq.com/mp/homepage?__biz=MzI5NTg2ODA2NA==&hid=1&sn=b7ef2bafcdb8660ffbcd67e2e70a1674",
     "picURL":"https://mmbiz.qpic.cn/mmbiz_jpg/zibib0z20iaTOUh2fSPKZQCjHzwcR8ftcbNLwvJELHfhMuSJORV9BH86yLKd1qZOlVtT3WCsmTNIekQsugIU9X6kQ/0?wx_fmt=jpeg"
         }
     ]
