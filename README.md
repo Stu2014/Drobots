@@ -4,6 +4,8 @@
 
 * [2019-08-16] 
   * 增加sec-wiki、wiki-inio、52bug
+* [2019-08-18] 
+  * 增加freebuf的rss源
 
 ## 安装 ##
 > pip install -r requierments
