@@ -9,10 +9,16 @@ import feedparser
 from bs4 import BeautifulSoup
 
 
-webhook= 'https://oapi.dingtalk.com/robot/send?access_token=xx' # access_token可以在丁丁机器人里找到
+webhook= 'https://oapi.dingtalk.com/robot/send?access_token=xxx' # webhook可以在丁丁机器人里找到
 headers ={"Content-Type": "application/json"}
 #给机器人添加图片
-links = [{"title": "安全黑板报每日推送","messageURL": "","picURL":"https://mmbiz.qpic.cn/mmbiz_jpg/zibib0z20iaTOUh2fSPKZQCjHzwcR8ftcbNLwvJELHfhMuSJORV9BH86yLKd1qZOlVtT3WCsmTNIekQsugIU9X6kQ/0?wx_fmt=jpeg"}]
+links = [
+            {
+    "title": "安全黑板报每日推送",
+    "messageURL": "",
+    "picURL":"https://mmbiz.qpic.cn/mmbiz_jpg/zibib0z20iaTOUh2fSPKZQCjHzwcR8ftcbNLwvJELHfhMuSJORV9BH86yLKd1qZOlVtT3WCsmTNIekQsugIU9X6kQ/0?wx_fmt=jpeg"
+        }
+    ]
 
 
 # 取出sec-wike rss的 href 和 string，添加到links中
@@ -61,11 +67,29 @@ def wikiinio():
         pattern= re.compile(reg_tit,re.DOTALL)#re.DOTALL,可以让正则表达式中的点（.）匹配包括换行符在内的任意字符。
         tags_tit= re.findall(pattern, link3_url)
         for x in range(len(tags_url)):
-            link2 = {"title": tags_tit[x].strip(),"messageURL": "http://wiki.ioin.in/"+tags_url[x]}
+            link2 = {"title": tags_tit[x].strip(),"messageURL": "http://wiki.ioin.in"+tags_url[x]}
             links.append(link2)
         return "ok"
     except :
         return "wikiinio is no ok"
+
+#freebuf 源
+def freebuf():
+    try:
+        freebuf= "https://www.freebuf.com/feed"
+        rs1 = feedparser.parse(freebuf)
+        l = len(rs1.entries)
+        for buf in range(l):
+            try:
+                url_f = rs1.entries[buf]["link"]
+                title_f = rs1.entries[buf]["title_detail"]["value"]
+                link4 = {"title": title_f,"messageURL": url_f}
+                links.append(link4)
+            except:
+                break
+        return "ok"
+    except :
+        return "freebuf is no ok"
 
 #robots出现错误情况
 def error_robots():
@@ -73,11 +97,7 @@ def error_robots():
         "msgtype": "text", 
         "text": {
             "content": "安全黑板报推送出现错误！"
-        }, 
-        "at": {
-            "atMobiles": [""], 
-            "isAtAll": True
-        }
+        } 
     }
     message =requests.post(url=webhook, data=json.dumps(body), headers=headers)
     print u"robots 出现错误！"
@@ -89,21 +109,23 @@ def send_mes():
         "feedCard": {
             "links": links
         }, 
-        "msgtype": "feedCard"
+        "msgtype": "feedCard",
+        "at": {
+            "atMobiles": [""], 
+            "isAtAll": True
+        }
     }
     try:
         message =requests.post(url=webhook, data=json.dumps(body), headers=headers)
         if json.loads(message.text)["errmsg"] == "ok":
             print u"安全黑板报机器人推送成功！"
         else:
-            error_robots()
             print json.loads(message.text)["errmsg"]
     except:
         error_robots()
 
 if __name__ == '__main__':
-    
-    if secwiki() == 'ok' and bug52() == 'ok' and wikiinio() == 'ok':
+    if secwiki() == 'ok' and bug52() == 'ok' and wikiinio() == 'ok' and freebuf() == 'ok':
         send_mes()
     else:
         error_robots()
