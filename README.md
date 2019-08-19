@@ -8,6 +8,7 @@
   * 增加freebuf的rss源
 * [2019-08-19]
   * 更换推送logo
+  * 增加分条推送，解决钉钉手机版只显示10条
 
 ## 安装 ##
 > pip install -r requierments
