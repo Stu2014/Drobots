@@ -102,7 +102,7 @@ def error_robots():
         } 
     }
     message =requests.post(url=webhook, data=json.dumps(body), headers=headers)
-    print u"robots 出现错误！"
+#     print u"robots 出现错误！"
 
 #推送完成节点
 def ntime(ntime1):
@@ -111,7 +111,7 @@ def ntime(ntime1):
         "text": {"content": "%s安全黑板报机器人推送完成" % ntime1} 
     }
     message =requests.post(url=webhook, data=json.dumps(body), headers=headers)
-    print u"推送完成"
+#     print u"推送完成"
 
 
 #推送操作
@@ -128,10 +128,10 @@ def send_mes(freecards):
     }
     try:
         message =requests.post(url=webhook, data=json.dumps(body), headers=headers)
-        if json.loads(message.text)["errmsg"] == "ok":
-            print u"安全黑板报机器人推送开始！"
-        else:
-            print json.loads(message.text)["errmsg"]
+#         if json.loads(message.text)["errmsg"] == "ok":
+#             print u"安全黑板报机器人推送开始！"
+#         else:
+#             print json.loads(message.text)["errmsg"]
     except:
         error_robots()
 
