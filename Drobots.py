@@ -7,10 +7,11 @@ import requests
 import json,re
 import feedparser
 from bs4 import BeautifulSoup
-import time
+import time,warnings
+warnings.filterwarnings("ignore")
 
 
-webhook= 'https://oapi.dingtalk.com/robot/send?access_token=' # webhook可以在丁丁机器人里找到
+webhook= 'https://oapi.dingtalk.com/robot/send?access_token=xxx' # webhook可以在丁丁机器人里找到
 headers ={"Content-Type": "application/json"}
 #给机器人添加图片
 links = [
@@ -62,18 +63,16 @@ def wikiinio():
     try:
         url ="http://wiki.ioin.in/"
         link3_url = requests.get(url).text
-        reg_url = r'<a href="(.*?)" class="visit-color"'
-        reg_tit = r'visit-color" target="_blank">(.*?)</a>'
-        pattern= re.compile(reg_url)
-        tags_url= re.findall(pattern, link3_url)
-        pattern= re.compile(reg_tit,re.DOTALL)#re.DOTALL,可以让正则表达式中的点（.）匹配包括换行符在内的任意字符。
-        tags_tit= re.findall(pattern, link3_url)
-        for x in range(len(tags_url)):
-            link2 = {"title": tags_tit[x].strip(),"messageURL": "http://wiki.ioin.in"+tags_url[x]}
+        rs1 = BeautifulSoup(link3_url)
+        for cas in rs1.find_all("a",attrs={"class":"visit-color"}):
+            title = cas.get_text().strip()
+            url = "http://wiki.ioin.in"+cas.attrs["href"]
+            link2 = {"title": title,"messageURL": url}
             linkss.append(link2)
+        # print linkss
         return "ok"
-    except :
-        return "wikiinio is no ok"
+    except:
+        return "wikiinio is no ok",e
 
 #freebuf 源
 def freebuf():
@@ -102,7 +101,7 @@ def error_robots():
         } 
     }
     message =requests.post(url=webhook, data=json.dumps(body), headers=headers)
-#     print u"robots 出现错误！"
+    # print u"robots 出现错误！"
 
 #推送完成节点
 def ntime(ntime1):
@@ -111,7 +110,7 @@ def ntime(ntime1):
         "text": {"content": "%s安全黑板报机器人推送完成" % ntime1} 
     }
     message =requests.post(url=webhook, data=json.dumps(body), headers=headers)
-#     print u"推送完成"
+    # print u"推送完成"
 
 
 #推送操作
@@ -128,12 +127,13 @@ def send_mes(freecards):
     }
     try:
         message =requests.post(url=webhook, data=json.dumps(body), headers=headers)
-#         if json.loads(message.text)["errmsg"] == "ok":
-#             print u"安全黑板报机器人推送开始！"
-#         else:
-#             print json.loads(message.text)["errmsg"]
+        # if json.loads(message.text)["errmsg"] == "ok":
+            # print u"安全黑板报机器人推送开始"
+        # else:
+            # print json.loads(message.text)["errmsg"]
     except:
         error_robots()
+
 
 if __name__ == '__main__':
     if secwiki() == 'ok' and bug52() == 'ok' and wikiinio() == 'ok' and freebuf() == 'ok':
@@ -146,3 +146,4 @@ if __name__ == '__main__':
         ntime(ntime1)
     else:
         error_robots()
+
